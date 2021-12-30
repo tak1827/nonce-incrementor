@@ -17,6 +17,8 @@ type Nonce struct {
 }
 
 func NewNonce(ctx context.Context, client Client, privKey string, ensure bool) (n *Nonce, err error) {
+	n = &Nonce{}
+
 	if n.current, err = client.Nonce(ctx, privKey); err != nil {
 		return
 	}
