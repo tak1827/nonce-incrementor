@@ -1,8 +1,3 @@
-# nonce-incrementor
-Thread safe the nonce of a blockchain account incrementor
-
-# How to use
-```go
 package main
 
 import (
@@ -49,4 +44,3 @@ func main() {
 
 	fmt.Printf("current: %d\n", current)
 }
-```
