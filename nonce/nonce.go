@@ -53,6 +53,28 @@ func (n *Nonce) Increment() (uint64, error) {
 	return n.current - 1, nil
 }
 
+func (n *Nonce) Decrement() (uint64, error) {
+	if !n.ensure {
+		return atomic.AddUint64(&n.current, ^uint64(0)), nil
+	}
+
+	n.Lock()
+	defer n.Unlock()
+
+	n.current -= 1
+
+	current, err := n.client.Nonce(context.Background(), n.privKey)
+	if err != nil {
+		return 0, err
+	}
+
+	if n.current < current {
+		n.current = current
+	}
+
+	return n.current, nil
+}
+
 func (n *Nonce) Reset(nonce uint64) {
 	atomic.StoreUint64(&n.current, nonce)
 }
