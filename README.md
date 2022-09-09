@@ -28,7 +28,7 @@ func main() {
 	c := SampleClient{}
 
 	// don't check latest nonce in mempool when increment and get current
-	n, err := nonce.NewNonce(context.Background(), &c, "", false)
+	n, err := nonce.NewNonce(context.Background(), &c, "", false, 0)
 	if err != nil {
 		panic(err)
 	}
@@ -38,7 +38,7 @@ func main() {
 	fmt.Printf("current: %d\n", current)
 
 	// check latest nonce in mempool when increment and get current
-	n, err = nonce.NewNonce(context.Background(), &c, "", true)
+	n, err = nonce.NewNonce(context.Background(), &c, "", true, 0)
 	if err != nil {
 		panic(err)
 	}
